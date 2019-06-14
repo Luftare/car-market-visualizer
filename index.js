@@ -5,7 +5,7 @@ const request = require("request");
 const cheerio = require("cheerio");
 const PORT = 8888;
 
-const visit = (url, cb) => {
+const getCars = (url, cb) => {
   request.get(url, (err, res, data) => {
     const $ = cheerio.load(data);
 
@@ -41,7 +41,7 @@ const visit = (url, cb) => {
 app.use('/', express.static(path.join(__dirname, '/client')));
 app.get('/cars', (req, res) => {
   try {
-    visit(req.query.url, (data) => {
+    getCars(req.query.url, (data) => {
       res.json(data);
     });
   } catch (e) {
