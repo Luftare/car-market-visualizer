@@ -19,7 +19,7 @@ if (!searcUrlsExists) {
 
 if (!dotEnvExists) {
   const dotEnvTemplate = `EMAIL=
-  EMAIL_PASSWORD=
-  RECIPIENT_EMAIL=`;
+EMAIL_PASSWORD=
+RECIPIENT_EMAIL=`;
   fs.writeFileSync(DOT_ENV_FILENAME, dotEnvTemplate, 'utf8');
 }
