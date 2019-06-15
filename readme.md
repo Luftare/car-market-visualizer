@@ -20,6 +20,8 @@ EMAIL_PASSWORD=
 RECIPIENT_EMAIL=
 `
 
+Add `searchUrls.txt` to root with search urls on their own lines
+
 run:
 `
 node sendUpdate.js
