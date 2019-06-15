@@ -76,13 +76,10 @@ const runUpdate = async () => {
     html: message
   };
 
-  console.log('sending:')
-  console.log(message);
-
-  // transporter.sendMail(email, (err, info) => {
-  //   if (err) console.log(err)
-  //   else console.log(info);
-  // });
+  transporter.sendMail(email, (err, info) => {
+    if (err) console.log(err)
+    else console.log(info);
+  });
 };
 
 runUpdate();
