@@ -65,8 +65,6 @@ const runUpdate = async () => {
 
   db.carIds = [...db.carIds, ...newCars.map(car => car.id)];
 
-  saveDb(db);
-
   const message = carsToMessage(newCars);
 
   const email = {
@@ -77,8 +75,12 @@ const runUpdate = async () => {
   };
 
   transporter.sendMail(email, (err, info) => {
-    if (err) console.log(err)
-    else console.log(info);
+    if (err) {
+      console.log(err)
+    } else {
+      saveDb(db);
+      console.log(`Sent ${newCars.length} new cars.`)
+    }
   });
 };
 
