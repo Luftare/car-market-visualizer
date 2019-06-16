@@ -16,30 +16,12 @@ async function asyncForEach(array, callback) {
   }
 }
 
-function saveDb(db) {
-  fs.writeFileSync('db.json', JSON.stringify(db), 'utf8');
-}
-
-const prepareDb = () => {
-  const dbExists = fs.existsSync('./db.json');
-
-  const db = dbExists
-    ? JSON.parse(fs.readFileSync('./db.json', 'utf8'))
-    : { carIds: [] }
-
-  if (!dbExists) {
-    saveDb(db);
-  }
-
-  return db;
-};
-
 const carsToMessage = cars => {
   return `${cars.map(car => (
     `<h4>${car.make} ${car.model}, ${car.year}</h4>
         <div>${car.mileage} km</div>
         <div>${car.price} €</div>
-        ${car.images.filter((_, i) => i < 5).map(src => (
+        ${car.images.filter((_, i) => i < 6).map(src => (
       `<img src="${src}"/>`
     ))}<a href="${car.url}">Näytä</a><hr/>`
   ))}`;
@@ -47,7 +29,7 @@ const carsToMessage = cars => {
 
 const runUpdate = async () => {
   const urls = fs.readFileSync('./searchUrls.txt', 'utf8').split('\n');
-  const db = prepareDb();
+  const db = JSON.parse(fs.readFileSync('./db.json', 'utf8'));
 
   let cars = [];
 
@@ -70,7 +52,7 @@ const runUpdate = async () => {
   const email = {
     from: process.env.EMAIL,
     to: process.env.RECIPIENT_EMAIL,
-    subject: 'Autopäivitys',
+    subject: `Autopäivitys (${newCars.length} kpl)`,
     html: message
   };
 
@@ -78,7 +60,7 @@ const runUpdate = async () => {
     if (err) {
       console.log(err)
     } else {
-      saveDb(db);
+      fs.writeFileSync('db.json', JSON.stringify(db), 'utf8');
       console.log(`Sent ${newCars.length} new cars.`)
     }
   });
