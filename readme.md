@@ -13,16 +13,6 @@
 
 ## Email
 
-Add .env file to root of repo with contents of:
-`
-EMAIL=
-EMAIL_PASSWORD=
-RECIPIENT_EMAIL=
-`
-
-Add `searchUrls.txt` to root with search urls on their own lines
-
-run:
-`
-node sendUpdate.js
-`
+1. Update .env values
+2. Add urls to `searchUrls.txt` on their own lines
+3. Run `node sendUpdate.js`
